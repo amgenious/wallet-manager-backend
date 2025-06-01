@@ -11,8 +11,11 @@ app.use(express.json())
 app.use(rateLimiter)
 const PORT = process.env.PORT || 5001
 
+if(process.env.NODE_ENV==="production") job.start()
 
-
+app.get("/api/health",(req,res)=>{
+    res.status(200).json({status:"Ok"})
+})
 app.use("/api/transactions", transactionsRoute)
 
 initDB().then(()=>{
